@@ -114,12 +114,12 @@ public class FacebookMessengerClientTest extends PowerMockTestCase  {
 
     @Test
     public void deserializeCallback_notPageObject() {
-        assertNull(impl.deserializeCallback(String.format(TEST_CALLBACK_JSON_FORMAT, "YOLO")));
+        assertNull(impl.deserializeCallback(String.format(TEST_CALLBACK_JSON_FORMAT, "not page object")));
     }
 
     @Test
     public void deserializeCallback_notJSON() {
-        assertNull(impl.deserializeCallback("YOLO"));
+        assertNull(impl.deserializeCallback("not json"));
     }
 
     @Test
