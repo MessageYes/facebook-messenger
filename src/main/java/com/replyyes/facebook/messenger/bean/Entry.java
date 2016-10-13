@@ -8,14 +8,14 @@ import lombok.Data;
 
 /**
  * A {@link Callback} is composed of a list of Entry instances.
+ * 
  * An Entry contains data specific to one or more messages. During moments of high load, the Facebook
- * messenger platform may batch together several Entry instances that each contain multiple {@link Messaging}
- * instances into a single Callback. It is important to iterator through all Entry and Messaging
+ * Messenger platform may batch together several Entry instances that each contain multiple {@link Messaging}
+ * instances into a single Callback. It is important to iterate through all Entry and Messaging
  * instances.
  *
- *https://developers.facebook.com/docs/messenger-platform/webhook-reference#format
- *@see Callback
- *
+ * https://developers.facebook.com/docs/messenger-platform/webhook-reference#format
+ * @see Callback
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
