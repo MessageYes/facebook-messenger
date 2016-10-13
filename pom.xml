@@ -24,7 +24,7 @@
     <apache.httpcomponents.httpcore.version>4.4.4</apache.httpcomponents.httpcore.version>
     <google.guava.version>18.0</google.guava.version>
     <jackson.version>2.6.4</jackson.version>
-    <java.version>1.8</java.version>    
+    <java.version>1.8</java.version>
     <lombok.version>1.16.6</lombok.version>
     <org.slf4j-version>1.7.12</org.slf4j-version>
     <powermock.version>1.6.3</powermock.version>
@@ -92,7 +92,7 @@
       <artifactId>jackson-datatype-jsr310</artifactId>
       <version>${jackson.version}</version>
     </dependency>
-    
+
     <!-- Logging -->
     <dependency>
       <groupId>org.slf4j</groupId>
