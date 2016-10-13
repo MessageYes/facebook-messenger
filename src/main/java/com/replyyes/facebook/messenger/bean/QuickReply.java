@@ -24,10 +24,12 @@ public class QuickReply {
      */
     @JsonProperty("content_type")
     private String contentType = "text";
+
     /**
      * Caption of button. Required.
      */
     private String title;
+
     /**
      * Custom data that will be sent back via webhook. Required.
      */
