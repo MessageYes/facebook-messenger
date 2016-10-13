@@ -16,9 +16,9 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StatusUpdate {
-	/**
-	 * The list of messages to update may or may not be populated. If not, the watermark must be used.
-	 */
+    /**
+     * The list of messages to update may or may not be populated. If not, the watermark must be used.
+     */
     private List<String> mids;
 
     private Long watermark;
