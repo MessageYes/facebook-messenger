@@ -34,9 +34,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * A client for interacting with the Facebook messenger API. Multiple pages can be supported as the
+ * A client for interacting with the Facebook Messenger API. Multiple pages can be supported as the
  * page access token is a parameter for methods that make API calls.
- *
  */
 @RequiredArgsConstructor
 @Slf4j
@@ -117,7 +116,7 @@ public class FacebookMessengerClient {
         checkArgument(StringUtils.isNotBlank(recipientId), "recipientId cannot be blank");
         checkArgument(CollectionUtils.isNotEmpty(elements), "elements cannot be empty");
 
-        checkArgument(CollectionUtils.size(quickReplies) <= 10, "Facebook only supports 10 or less quick replies per message");
+        checkArgument(CollectionUtils.size(quickReplies) <= 10, "Facebook only supports 10 or fewer quick replies per message");
 
         for (Element element : elements) {
             if (StringUtils.length(element.getTitle()) > MAX_GENERIC_MESSAGE_TITLE_LENGTH ||
@@ -211,16 +210,13 @@ public class FacebookMessengerClient {
             if (statusCode >= 200 && statusCode < 300) {
                 log.debug("Successfully sent message. messageRequest: {}", messageRequest);
                 return OBJECT_MAPPER.readValue(response.getEntity().getContent(), MessageResponse.class);
-
             } else {
                 log.error("Failed to send messageRequest: {} response: {}", messageRequest, response);
                 return null;
             }
-
         } catch (IOException e) {
             log.error("Error sending messageRequest: {}", messageRequest, e);
             return null;
-
         } finally {
             HttpClientUtils.closeQuietly(response);
             HttpClientUtils.closeQuietly(httpClient);
