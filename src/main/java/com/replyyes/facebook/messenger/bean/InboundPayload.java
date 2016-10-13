@@ -8,8 +8,8 @@ import lombok.Data;
 
 /**
  * A {@link Callback} may potentially have a payload. This payload contains metadata specific to the
- * Messenger bot. It can be set in a previous @{link OutboundMessage} as with @{link QuickReply} or app
- * configuration such as the Getting Started button or static menu.
+ * Messenger bot. It can be set in a previous @{link OutboundMessage} inside a @{link QuickReply} or app
+ * configuration using the Getting Started button or static menu.
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)

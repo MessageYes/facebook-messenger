@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 /**
- * An {@link Entry} contains one or Messaging instance. Data about a specific message is
+ * An {@link Entry} contains one or Messaging instances. Data about a specific message is
  * contained within this class.
  *
  * https://developers.facebook.com/docs/messenger-platform/webhook-reference
@@ -35,6 +35,11 @@ public class Messaging {
      */
     private InboundMessage message;
 
+    /**
+     * Postbacks occur when a Postback button, Get Started button, Persistent menu or
+     * Structured Message is tapped.
+     * https://developers.facebook.com/docs/messenger-platform/webhook-reference/postback-received
+     */
     private InboundPayload postback;
 
     /**
