@@ -47,26 +47,26 @@ import com.replyyes.facebook.messenger.bean.User;
 @PowerMockIgnore("javax.crypto.*")
 @PrepareForTest(HttpClients.class)
 public class FacebookMessengerClientTest extends PowerMockTestCase  {
-    // The object value is a placehold, %s, so it can be replaced with String.format.
+    // The object value is a placeholder, %s, so it can be replaced with String.format.
     private static final String TEST_CALLBACK_JSON_FORMAT =
         "{\"object\":\"%s\"," +
-            "\"entry\":[{" +
-              "\"id\":\"test entry id\",\"time\":123456789,\"messaging\":[{" +
-                "\"sender\":{\"id\":\"test sender id\"},\"recipient\":{\"id\":\"test recipient id\"}," +
-                "\"timestamp\":987654321,\"message\":{\"mid\":\"mid.testmessage:testhello\",\"seq\":54,\"text\":\"test text message\"}" +
-              "}]" +
+          "\"entry\":[{" +
+            "\"id\":\"test entry id\",\"time\":123456789,\"messaging\":[{" +
+              "\"sender\":{\"id\":\"test sender id\"},\"recipient\":{\"id\":\"test recipient id\"}," +
+              "\"timestamp\":987654321,\"message\":{\"mid\":\"mid.testmessage:testhello\",\"seq\":54,\"text\":\"test text message\"}" +
             "}]" +
-          "}";
+          "}]" +
+        "}";
 
     private static final String TEST_CALLBACK_NO_ENTRY_TIME =
         "{\"object\":\"page\"," +
-            "\"entry\":[{" +
-              "\"id\":\"test entry id\",\"messaging\":[{" +
-                "\"sender\":{\"id\":\"test sender id\"},\"recipient\":{\"id\":\"test recipient id\"}," +
-                "\"timestamp\":987654321,\"message\":{\"mid\":\"mid.testmessage:testhello\",\"seq\":54,\"text\":\"test text message\"}" +
-              "}]" +
+          "\"entry\":[{" +
+            "\"id\":\"test entry id\",\"messaging\":[{" +
+              "\"sender\":{\"id\":\"test sender id\"},\"recipient\":{\"id\":\"test recipient id\"}," +
+              "\"timestamp\":987654321,\"message\":{\"mid\":\"mid.testmessage:testhello\",\"seq\":54,\"text\":\"test text message\"}" +
             "}]" +
-          "}";
+          "}]" +
+        "}";
 
     private FacebookMessengerClient impl;
     private CloseableHttpClient httpClient;
