@@ -10,7 +10,6 @@ import lombok.Data;
  * is sent to a user
  *
  * https://developers.facebook.com/docs/messenger-platform/send-api-reference#response
- *
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
