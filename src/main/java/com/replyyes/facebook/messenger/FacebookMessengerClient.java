@@ -78,7 +78,6 @@ public class FacebookMessengerClient {
                 return callback;
             }
             log.error("The callback JSON is not a page object: {}", callbackJSON);
-
         } catch (IOException e) {
             log.error("Error deserializing callback JSON: {}", callbackJSON, e);
         }
@@ -98,7 +97,6 @@ public class FacebookMessengerClient {
         try {
             byte[] sha1 = HmacUtils.hmacSha1(appSecretKey.getBytes(StandardCharsets.UTF_8), requestBody.getBytes(StandardCharsets.UTF_8));
             return StringUtils.equals("sha1=" + Hex.encodeHexString(sha1), signature);
-
         } catch (Exception e) {
             log.error("Failed to generate hex encoded HmacSHA1 for requestBody {}", requestBody, e);
             return false;
