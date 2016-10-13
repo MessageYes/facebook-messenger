@@ -12,7 +12,6 @@ import lombok.Data;
  * instances, each of which has the potential to contain one or more {@link Messaging} instances.
  *
  * https://developers.facebook.com/docs/messenger-platform/webhook-reference#format
- *
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
