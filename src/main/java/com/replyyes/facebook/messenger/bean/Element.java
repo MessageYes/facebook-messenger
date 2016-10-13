@@ -21,16 +21,19 @@ public class Element {
      * Bubble title. Required.
      */
     private String title;
+
     /**
      * URL that is opened when bubble is tapped. Optional.
      */
     @JsonProperty("item_url")
     private String itemUrl;
+
     /**
      * Bubble image. Optional.
      */
     @JsonProperty("image_url")
     private String imageUrl;
+
     /**
      * Bubble subtitle. Optional.
      */
