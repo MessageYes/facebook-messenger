@@ -16,7 +16,6 @@ import lombok.Data;
  * Together they form the payload that is sent to the Facebook API which will trigger a message to be sent to a user.
  *
  * https://developers.facebook.com/docs/messenger-platform/send-api-reference/text-message
- *
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)

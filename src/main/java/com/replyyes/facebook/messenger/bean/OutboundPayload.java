@@ -13,11 +13,13 @@ import lombok.Data;
 
 /**
  * The data for an {@link Attachment} is contained within this class. There several types of attachments:
- * - image
- * - audio
- * - video
- * - file
- * - template message
+ * <ul>
+ *   <li>image</li>
+ *   <li>audio</li>
+ *   <li>video</li>
+ *   <li>file</li>
+ *   <li>template message</li>
+ * </ul>
  *
  * Consequently, the OutboundPayload class has a fair bit of flexibility in order to represent those types.
  *

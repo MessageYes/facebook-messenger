@@ -12,7 +12,6 @@ import lombok.Data;
  *
  * https://developers.facebook.com/docs/messenger-platform/webhook-reference/message-delivered
  * https://developers.facebook.com/docs/messenger-platform/webhook-reference/message-read
- *
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
