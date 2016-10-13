@@ -9,7 +9,6 @@ import lombok.Data;
 /**
  * Both {@link InboundMessage} and {@link OutboundMessage} can have an attachment. It can
  * be as simple as an image or as complicated as template.
- *
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
