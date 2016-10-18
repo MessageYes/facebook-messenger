@@ -11,6 +11,16 @@ An instance of `FacebookMessengerClient` is needed to validate and deserialize i
 
 We are using Jackson's `ObjectMapper` to serialize and deserialize request bodies. Consequently, POJO names and properties closely resemble API object and property names. Further explanation of the Facebook Messenger API is left to their developer documentation.
 
+## Maven 
+The client is publicly available as an artifact on Maven Central. If you are using Maven, you can simply add this dependency to your `pom.xml`.
+```xml
+<dependency>
+  <groupId>com.replyyes</groupId>
+  <artifactId>facebook-messenger</artifactId>
+  <version>0.0.2</version>
+</dependency>
+``` 
+
 # How To Contribute
 We are primarily interested in improving our coverage of the Messenger API however, we are also open to utilities. Just send us a PR.
 
