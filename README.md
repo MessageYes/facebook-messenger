@@ -13,3 +13,6 @@ We are using Jackson's `ObjectMapper` to serialize and deserialize request bodie
 
 # How To Contribute
 We are primarily interested in improving our coverage of the Messenger API however, we are also open to utilities. Just send us a PR.
+
+# Build Notes
+Deploying new artifacts to Maven Central requires jars for Javadoc and source code. The following command will generate, sign, and upload them to the staging repository: `mvn clean javadoc:jar source:jar package gpg:sign deploy`
