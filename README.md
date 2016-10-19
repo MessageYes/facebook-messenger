@@ -11,5 +11,49 @@ An instance of `FacebookMessengerClient` is needed to validate and deserialize i
 
 We are using Jackson's `ObjectMapper` to serialize and deserialize request bodies. Consequently, POJO names and properties closely resemble API object and property names. Further explanation of the Facebook Messenger API is left to their developer documentation.
 
+## Maven 
+The client is publicly available as an artifact on Maven Central. If you are using Maven, you can simply add this dependency to your `pom.xml`.
+```xml
+<dependency>
+  <groupId>com.replyyes</groupId>
+  <artifactId>facebook-messenger</artifactId>
+  <version>0.0.2</version>
+</dependency>
+``` 
+
 # How To Contribute
 We are primarily interested in improving our coverage of the Messenger API however, we are also open to utilities. Just send us a PR.
+
+# Build Notes
+Deploying new artifacts to Maven Central requires jars for Javadoc and source code. The following command will generate, sign, and upload them to the staging repository: `mvn clean javadoc:jar source:jar package gpg:sign deploy`
+
+In order for the above command to work, you will need to have GPG installed. The Sonatype documentation is a pretty good resource on getting it setup:
+http://central.sonatype.org/pages/working-with-pgp-signatures.html
+
+It is probably also worth reviewing the Sonatype documentation on using Maven to build artifacts:
+http://central.sonatype.org/pages/apache-maven.html
+
+Ultimately, you will need to have a `~/.m2/settings.xml` that looks very similar to the following:
+```xml
+<settings>
+  <servers>
+    <server>
+      <id>ossrh</id>
+      <username>YOUR SONATYPE USERNAME</username>
+      <password>YOUR SONATYPE PASSWORD</password>
+    </server>
+  </servers>
+  <profiles>
+    <profile>
+      <id>ossrh</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <gpg.executable>gpg2</gpg.executable>
+        <gpg.passphrase>YOUR GPG PASSPHRASE</gpg.passphrase>
+      </properties>
+    </profile>
+  </profiles>
+</settings>
+```
