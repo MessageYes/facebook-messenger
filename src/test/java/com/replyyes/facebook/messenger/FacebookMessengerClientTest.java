@@ -21,6 +21,7 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.mockito.ArgumentCaptor;
 import org.powermock.api.mockito.PowerMockito;
@@ -76,9 +77,11 @@ public class FacebookMessengerClientTest extends PowerMockTestCase  {
     @BeforeMethod
     public void setup() throws IOException {
         PowerMockito.mockStatic(HttpClients.class);
+        HttpClientBuilder httpClientBuilder = mock(HttpClientBuilder.class);
+        when(HttpClients.custom()).thenReturn(httpClientBuilder);
 
         httpClient = mock(CloseableHttpClient.class);
-        when(HttpClients.createDefault()).thenReturn(httpClient);
+        when(httpClientBuilder.build()).thenReturn(httpClient);
 
         restResponse = mock(CloseableHttpResponse.class);
         when(httpClient.execute(any(HttpUriRequest.class))).thenReturn(restResponse);

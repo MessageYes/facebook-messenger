@@ -10,6 +10,7 @@ import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.HttpClientUtils;
@@ -42,6 +43,7 @@ import lombok.extern.slf4j.Slf4j;
 public class FacebookMessengerClient {
 
     protected static final String DEFAULT_FACEBOOK_MESSAGE_ENDPOINT = "https://graph.facebook.com/v2.6/me/messages?access_token=";
+    protected static final Integer DEFAULT_REQUEST_TIMEOUT = 30000;
 
     private static final String CALLBACK_OBJECT_PAGE = "page";
 
@@ -57,12 +59,17 @@ public class FacebookMessengerClient {
 
     @NonNull
     private String facebookMessageEndPoint;
+    /**
+     * Time out in milliseconds for requests sent to the Facebook Message endpoint.
+     */
+    @NonNull
+    private Integer requestTimeout;
 
     /**
      * This constructor makes use of the DEFAULT_FACEBOOK_MESSAGE_ENDPOINT
      */
     public FacebookMessengerClient() {
-        this(DEFAULT_FACEBOOK_MESSAGE_ENDPOINT);
+        this(DEFAULT_FACEBOOK_MESSAGE_ENDPOINT, DEFAULT_REQUEST_TIMEOUT);
     }
 
     public Callback deserializeCallback(@NonNull String callbackJSON) {
@@ -196,7 +203,13 @@ public class FacebookMessengerClient {
     }
 
     private MessageResponse sendMessageRequest(@NonNull String pageAccessToken, @NonNull MessageRequest messageRequest) {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+        RequestConfig requestConfig = RequestConfig.custom()
+                .setSocketTimeout(requestTimeout)
+                .setConnectTimeout(requestTimeout)
+                .build();
+        CloseableHttpClient httpClient = HttpClients.custom()
+                .setDefaultRequestConfig(requestConfig)
+                .build();
         CloseableHttpResponse response = null;
         HttpPost httpPost = null;
         try {
