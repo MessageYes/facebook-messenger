@@ -60,7 +60,7 @@ public class FacebookMessengerClient {
     @NonNull
     private String facebookMessageEndPoint;
     /**
-     * Time out in milliseconds for requests sent to the Facebook Message endpoint.
+     * Timeout in milliseconds for requests sent to the Facebook Message endpoint.
      */
     @NonNull
     private Integer requestTimeout;
