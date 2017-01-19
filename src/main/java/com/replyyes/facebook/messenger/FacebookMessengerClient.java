@@ -23,6 +23,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.replyyes.facebook.messenger.bean.Attachment;
 import com.replyyes.facebook.messenger.bean.Callback;
 import com.replyyes.facebook.messenger.bean.Element;
+import com.replyyes.facebook.messenger.bean.ErrorResponse;
+import com.replyyes.facebook.messenger.bean.FacebookMessengerSendException;
 import com.replyyes.facebook.messenger.bean.MessageRequest;
 import com.replyyes.facebook.messenger.bean.MessageResponse;
 import com.replyyes.facebook.messenger.bean.OutboundMessage;
@@ -116,7 +118,7 @@ public class FacebookMessengerClient {
      *
      * https://developers.facebook.com/docs/messenger-platform/send-api-reference/generic-template
      */
-    public MessageResponse sendGenericMessage(@NonNull String pageAccessToken, @NonNull String recipientId, @NonNull List<Element> elements, List<QuickReply> quickReplies) {
+    public MessageResponse sendGenericMessage(@NonNull String pageAccessToken, @NonNull String recipientId, @NonNull List<Element> elements, List<QuickReply> quickReplies) throws FacebookMessengerSendException {
         checkArgument(StringUtils.isNotBlank(pageAccessToken), "pageAccessToken cannot be blank");
         checkArgument(StringUtils.isNotBlank(recipientId), "recipientId cannot be blank");
         checkArgument(CollectionUtils.isNotEmpty(elements), "elements cannot be empty");
@@ -151,7 +153,7 @@ public class FacebookMessengerClient {
      *
      * https://developers.facebook.com/docs/messenger-platform/send-api-reference/image-attachment
      */
-    public MessageResponse sendImageMessage(@NonNull String pageAccessToken, @NonNull String recipientId, @NonNull String imageURL) {
+    public MessageResponse sendImageMessage(@NonNull String pageAccessToken, @NonNull String recipientId, @NonNull String imageURL) throws FacebookMessengerSendException {
         checkArgument(StringUtils.isNotBlank(pageAccessToken), "pageAccessToken cannot be blank");
         checkArgument(StringUtils.isNotBlank(recipientId), "recipientId cannot be blank");
         checkArgument(StringUtils.isNotBlank(imageURL), "imageURL cannot be blank");
@@ -173,7 +175,7 @@ public class FacebookMessengerClient {
      *
      * https://developers.facebook.com/docs/messenger-platform/send-api-reference/text-message
      */
-    public MessageResponse sendTextMessage(@NonNull String pageAccessToken, @NonNull String recipientId, @NonNull String messageText) {
+    public MessageResponse sendTextMessage(@NonNull String pageAccessToken, @NonNull String recipientId, @NonNull String messageText) throws FacebookMessengerSendException {
         checkArgument(StringUtils.isNotBlank(pageAccessToken), "pageAccessToken cannot be blank");
         checkArgument(StringUtils.isNotBlank(recipientId), "recipientId cannot be blank");
         checkArgument(StringUtils.isNotBlank(messageText), "messageText cannot be blank");
@@ -189,7 +191,7 @@ public class FacebookMessengerClient {
      * way. It is up to the caller to ensure that the attributes set on the OutboundMessage represent
      * a valid request payload that Facebook will accept.
      */
-    public MessageResponse sendOutboundMessage(@NonNull String pageAccessToken, @NonNull String recipientId, @NonNull OutboundMessage message) {
+    public MessageResponse sendOutboundMessage(@NonNull String pageAccessToken, @NonNull String recipientId, @NonNull OutboundMessage message) throws FacebookMessengerSendException {
         checkArgument(StringUtils.isNotBlank(pageAccessToken), "pageAccessToken cannot be blank");
         checkArgument(StringUtils.isNotBlank(recipientId), "recipientId cannot be blank");
 
@@ -202,7 +204,8 @@ public class FacebookMessengerClient {
         return sendMessageRequest(pageAccessToken, messageRequest);
     }
 
-    private MessageResponse sendMessageRequest(@NonNull String pageAccessToken, @NonNull MessageRequest messageRequest) {
+    private MessageResponse sendMessageRequest(@NonNull String pageAccessToken, @NonNull MessageRequest messageRequest) throws FacebookMessengerSendException {
+
         RequestConfig requestConfig = RequestConfig.custom()
                 .setSocketTimeout(requestTimeout)
                 .setConnectTimeout(requestTimeout)
@@ -222,8 +225,10 @@ public class FacebookMessengerClient {
                 log.debug("Successfully sent message. messageRequest: {}", messageRequest);
                 return OBJECT_MAPPER.readValue(response.getEntity().getContent(), MessageResponse.class);
             } else {
-                log.error("Failed to send messageRequest: {} response: {}", messageRequest, response);
-                return null;
+                log.info("Failed to send messageRequest: {} response: {}", messageRequest, response);
+                ErrorResponse errorResponse = OBJECT_MAPPER.readValue(
+                    response.getEntity().getContent(), ErrorResponse.class);
+                throw new FacebookMessengerSendException(errorResponse.getError());
             }
         } catch (IOException e) {
             log.error("Error sending messageRequest: {}", messageRequest, e);
