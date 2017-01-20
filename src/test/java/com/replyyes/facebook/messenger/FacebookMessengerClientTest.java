@@ -9,8 +9,8 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.fail;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.io.IOUtils;
@@ -36,6 +36,9 @@ import com.replyyes.facebook.messenger.bean.Attachment;
 import com.replyyes.facebook.messenger.bean.Callback;
 import com.replyyes.facebook.messenger.bean.Element;
 import com.replyyes.facebook.messenger.bean.Entry;
+import com.replyyes.facebook.messenger.bean.ErrorPayload;
+import com.replyyes.facebook.messenger.bean.ErrorResponse;
+import com.replyyes.facebook.messenger.bean.FacebookMessengerSendException;
 import com.replyyes.facebook.messenger.bean.InboundMessage;
 import com.replyyes.facebook.messenger.bean.MessageRequest;
 import com.replyyes.facebook.messenger.bean.MessageResponse;
@@ -75,7 +78,7 @@ public class FacebookMessengerClientTest extends PowerMockTestCase  {
     private StatusLine restStatus;
 
     @BeforeMethod
-    public void setup() throws IOException {
+    public void setup() throws Exception {
         PowerMockito.mockStatic(HttpClients.class);
         HttpClientBuilder httpClientBuilder = mock(HttpClientBuilder.class);
         when(HttpClients.custom()).thenReturn(httpClientBuilder);
@@ -165,7 +168,7 @@ public class FacebookMessengerClientTest extends PowerMockTestCase  {
     }
 
     @Test
-    public void sendGenericMessage_200Status() throws IOException {
+    public void sendGenericMessage_200Status() throws Exception {
         when(restStatus.getStatusCode()).thenReturn(200);
 
         MessageResponse messageResponse = new MessageResponse();
@@ -209,7 +212,7 @@ public class FacebookMessengerClientTest extends PowerMockTestCase  {
     }
 
     @Test
-    public void sendImageMessage_200Status() throws IOException {
+    public void sendImageMessage_200Status() throws Exception {
         when(restStatus.getStatusCode()).thenReturn(200);
 
         MessageResponse messageResponse = new MessageResponse();
@@ -244,10 +247,30 @@ public class FacebookMessengerClientTest extends PowerMockTestCase  {
     }
 
     @Test
-    public void sendImageMessage_400Status() throws IOException {
+    public void sendImageMessage_400Status() throws Exception {
         when(restStatus.getStatusCode()).thenReturn(400);
 
-        assertNull(impl.sendImageMessage("test_page_access_token", "test recipient id", "test image url"));
+        ErrorPayload error = new ErrorPayload();
+        error.setCode(222L);
+        error.setErrorSubcode(333L);
+        error.setFbtraceId("fb_trace_id");
+        error.setMessage("Error Sending Message");
+        error.setType("Internal Error");
+
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setError(error);
+
+        String responsePayload = FacebookMessengerClient.OBJECT_MAPPER.writeValueAsString(errorResponse);
+        when(restResponse.getEntity()).thenReturn(new StringEntity(responsePayload));
+
+        try {
+            impl.sendImageMessage("test_page_access_token", "test recipient id", "test image url");
+            fail("FacebookMessengerSendException expected");
+        } catch (FacebookMessengerSendException e) {
+            assertEquals(e.getMessage(), error.getMessage());
+            assertEquals(e.getErrorCode(), error.getCode());
+            assertEquals(e.getErrorSubCode(), error.getErrorSubcode());
+        }
 
         ArgumentCaptor<HttpPost> httpPostCaptor = ArgumentCaptor.forClass(HttpPost.class);
         verify(httpClient, times(1)).execute(httpPostCaptor.capture());
@@ -272,7 +295,7 @@ public class FacebookMessengerClientTest extends PowerMockTestCase  {
     }
 
     @Test
-    public void sendTextMessage_200Status() throws IOException {
+    public void sendTextMessage_200Status() throws Exception {
         when(restStatus.getStatusCode()).thenReturn(200);
 
         MessageResponse messageResponse = new MessageResponse();
@@ -302,10 +325,30 @@ public class FacebookMessengerClientTest extends PowerMockTestCase  {
     }
 
     @Test
-    public void sendTextMessage_400Status() throws IOException {
+    public void sendTextMessage_400Status() throws Exception {
         when(restStatus.getStatusCode()).thenReturn(400);
 
-        assertNull(impl.sendTextMessage("test_page_access_token", "test recipient id", "test message"));
+        ErrorPayload error = new ErrorPayload();
+        error.setCode(222L);
+        error.setErrorSubcode(333L);
+        error.setFbtraceId("fb_trace_id");
+        error.setMessage("Error Sending Message");
+        error.setType("Internal Error");
+
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setError(error);
+
+        String responsePayload = FacebookMessengerClient.OBJECT_MAPPER.writeValueAsString(errorResponse);
+        when(restResponse.getEntity()).thenReturn(new StringEntity(responsePayload));
+
+        try {
+            assertNull(impl.sendTextMessage("test_page_access_token", "test recipient id", "test message"));
+            fail("FacebookMessengerSendException expected");
+        } catch (FacebookMessengerSendException e) {
+            assertEquals(e.getMessage(), error.getMessage());
+            assertEquals(e.getErrorCode(), error.getCode());
+            assertEquals(e.getErrorSubCode(), error.getErrorSubcode());
+        }
 
         ArgumentCaptor<HttpPost> httpPostCaptor = ArgumentCaptor.forClass(HttpPost.class);
         verify(httpClient, times(1)).execute(httpPostCaptor.capture());
@@ -328,7 +371,7 @@ public class FacebookMessengerClientTest extends PowerMockTestCase  {
     }
 
     @Test
-    public void sendOutboundMessage_200Status() throws IOException {
+    public void sendOutboundMessage_200Status() throws Exception {
         when(restStatus.getStatusCode()).thenReturn(200);
 
         OutboundMessage message = new OutboundMessage();
@@ -358,13 +401,33 @@ public class FacebookMessengerClientTest extends PowerMockTestCase  {
     }
 
     @Test
-    public void sendOutboundMessage_400Status() throws IOException {
+    public void sendOutboundMessage_400Status() throws Exception {
         when(restStatus.getStatusCode()).thenReturn(400);
+
+        ErrorPayload error = new ErrorPayload();
+        error.setCode(222L);
+        error.setErrorSubcode(333L);
+        error.setFbtraceId("fb_trace_id");
+        error.setMessage("Error Sending Message");
+        error.setType("Internal Error");
+
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setError(error);
+
+        String responsePayload = FacebookMessengerClient.OBJECT_MAPPER.writeValueAsString(errorResponse);
+        when(restResponse.getEntity()).thenReturn(new StringEntity(responsePayload));
 
         OutboundMessage message = new OutboundMessage();
         message.setText("test message");
 
-        assertNull(impl.sendOutboundMessage("test_page_access_token", "test recipient id", message));
+        try {
+            assertNull(impl.sendOutboundMessage("test_page_access_token", "test recipient id", message));
+            fail("FacebookMessengerSendException expected");
+        } catch (FacebookMessengerSendException e) {
+            assertEquals(e.getMessage(), error.getMessage());
+            assertEquals(e.getErrorCode(), error.getCode());
+            assertEquals(e.getErrorSubCode(), error.getErrorSubcode());
+        }
 
         ArgumentCaptor<HttpPost> httpPostCaptor = ArgumentCaptor.forClass(HttpPost.class);
         verify(httpClient, times(1)).execute(httpPostCaptor.capture());
