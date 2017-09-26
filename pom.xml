@@ -25,6 +25,12 @@
 
   <developers>
     <developer>
+      <name>Chris Jordan</name>
+      <email>chris@messageyes.com</email>
+      <organization>MessageYes</organization>
+      <organizationUrl>http://messageyes.com</organizationUrl>
+    </developer>
+    <developer>
       <name>Trevor Inman</name>
       <email>trevor@messageyes.com</email>
       <organization>MessageYes</organization>
