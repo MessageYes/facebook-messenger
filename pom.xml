@@ -3,17 +3,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.replyyes</groupId>
+  <groupId>com.messageyes</groupId>
   <artifactId>facebook-messenger</artifactId>
-  <version>0.1.0</version>
+  <version>1.0.0</version>
   <packaging>jar</packaging>
 
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Java client for Facebook Messenger</description>
-  <url>https://github.com/ReplyYes/facebook-messenger</url>
+  <url>https://github.com/MessageYes/facebook-messenger</url>
   <organization>
-    <name>ReplyYes</name>
-    <url>http://replyyes.com</url>
+    <name>MessageYes</name>
+    <url>http://messageyes.com</url>
   </organization>
 
   <licenses>
@@ -26,28 +26,28 @@
   <developers>
     <developer>
       <name>Chris Jordan</name>
-      <email>chris@replyyes.com</email>
-      <organization>ReplyYes</organization>
-      <organizationUrl>http://replyyes.com</organizationUrl>
+      <email>chris@messageyes.com</email>
+      <organization>MessageYes</organization>
+      <organizationUrl>http://messageyes.com</organizationUrl>
     </developer>
     <developer>
       <name>Trevor Inman</name>
-      <email>trevor@replyyes.com</email>
-      <organization>ReplyYes</organization>
-      <organizationUrl>http://replyyes.com</organizationUrl>
+      <email>trevor@messageyes.com</email>
+      <organization>MessageYes</organization>
+      <organizationUrl>http://messageyes.com</organizationUrl>
     </developer>
     <developer>
       <name>Anthony Lazar</name>
-      <email>anthony@replyyes.com</email>
-      <organization>ReplyYes</organization>
-      <organizationUrl>http://replyyes.com</organizationUrl>
+      <email>anthony@messageyes.com</email>
+      <organization>MessageYes</organization>
+      <organizationUrl>http://messageyes.com</organizationUrl>
     </developer>
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com/ReplyYes/facebook-messenger.git</connection>
-    <developerConnection>scm:git:ssh://github.com:ReplyYes/facebook-messenger.git</developerConnection>
-    <url>https://github.com/ReplyYes/facebook-messenger/tree/master</url>
+    <connection>scm:git:git://github.com/MessageYes/facebook-messenger.git</connection>
+    <developerConnection>scm:git:ssh://github.com:MessageYes/facebook-messenger.git</developerConnection>
+    <url>https://github.com/MessageYes/facebook-messenger/tree/master</url>
   </scm>
 
   <properties>

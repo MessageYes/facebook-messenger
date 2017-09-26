@@ -1,4 +1,4 @@
-package com.replyyes.facebook.messenger.bean;
+package com.messageyes.facebook.messenger.bean;
 
 import lombok.Data;
 

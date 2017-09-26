@@ -1,4 +1,4 @@
-package com.replyyes.facebook.messenger;
+package com.messageyes.facebook.messenger;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
@@ -32,21 +32,22 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.google.common.collect.ImmutableList;
-import com.replyyes.facebook.messenger.bean.Attachment;
-import com.replyyes.facebook.messenger.bean.Callback;
-import com.replyyes.facebook.messenger.bean.Element;
-import com.replyyes.facebook.messenger.bean.Entry;
-import com.replyyes.facebook.messenger.bean.ErrorPayload;
-import com.replyyes.facebook.messenger.bean.ErrorResponse;
-import com.replyyes.facebook.messenger.bean.FacebookMessengerSendException;
-import com.replyyes.facebook.messenger.bean.InboundMessage;
-import com.replyyes.facebook.messenger.bean.MessageRequest;
-import com.replyyes.facebook.messenger.bean.MessageResponse;
-import com.replyyes.facebook.messenger.bean.Messaging;
-import com.replyyes.facebook.messenger.bean.OutboundMessage;
-import com.replyyes.facebook.messenger.bean.OutboundPayload;
-import com.replyyes.facebook.messenger.bean.QuickReply;
-import com.replyyes.facebook.messenger.bean.User;
+import com.messageyes.facebook.messenger.FacebookMessengerClient;
+import com.messageyes.facebook.messenger.bean.Attachment;
+import com.messageyes.facebook.messenger.bean.Callback;
+import com.messageyes.facebook.messenger.bean.Element;
+import com.messageyes.facebook.messenger.bean.Entry;
+import com.messageyes.facebook.messenger.bean.ErrorPayload;
+import com.messageyes.facebook.messenger.bean.ErrorResponse;
+import com.messageyes.facebook.messenger.bean.FacebookMessengerSendException;
+import com.messageyes.facebook.messenger.bean.InboundMessage;
+import com.messageyes.facebook.messenger.bean.MessageRequest;
+import com.messageyes.facebook.messenger.bean.MessageResponse;
+import com.messageyes.facebook.messenger.bean.Messaging;
+import com.messageyes.facebook.messenger.bean.OutboundMessage;
+import com.messageyes.facebook.messenger.bean.OutboundPayload;
+import com.messageyes.facebook.messenger.bean.QuickReply;
+import com.messageyes.facebook.messenger.bean.User;
 
 @PowerMockIgnore("javax.crypto.*")
 @PrepareForTest(HttpClients.class)

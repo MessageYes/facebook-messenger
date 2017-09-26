@@ -1,4 +1,4 @@
-package com.replyyes.facebook.messenger;
+package com.messageyes.facebook.messenger;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -20,17 +20,17 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.replyyes.facebook.messenger.bean.Attachment;
-import com.replyyes.facebook.messenger.bean.Callback;
-import com.replyyes.facebook.messenger.bean.Element;
-import com.replyyes.facebook.messenger.bean.ErrorResponse;
-import com.replyyes.facebook.messenger.bean.FacebookMessengerSendException;
-import com.replyyes.facebook.messenger.bean.MessageRequest;
-import com.replyyes.facebook.messenger.bean.MessageResponse;
-import com.replyyes.facebook.messenger.bean.OutboundMessage;
-import com.replyyes.facebook.messenger.bean.OutboundPayload;
-import com.replyyes.facebook.messenger.bean.QuickReply;
-import com.replyyes.facebook.messenger.bean.User;
+import com.messageyes.facebook.messenger.bean.Attachment;
+import com.messageyes.facebook.messenger.bean.Callback;
+import com.messageyes.facebook.messenger.bean.Element;
+import com.messageyes.facebook.messenger.bean.ErrorResponse;
+import com.messageyes.facebook.messenger.bean.FacebookMessengerSendException;
+import com.messageyes.facebook.messenger.bean.MessageRequest;
+import com.messageyes.facebook.messenger.bean.MessageResponse;
+import com.messageyes.facebook.messenger.bean.OutboundMessage;
+import com.messageyes.facebook.messenger.bean.OutboundPayload;
+import com.messageyes.facebook.messenger.bean.QuickReply;
+import com.messageyes.facebook.messenger.bean.User;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
